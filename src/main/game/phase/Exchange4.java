@@ -2,6 +2,7 @@ package src.main.game.phase;
 
 import src.main.game.GameController;
 import src.main.domain.PlayerState;
+import src.main.game.phase.ExchangeMode;
 
 public class Exchange4 implements IGamePhase {
     private static final int BASE_HAND_LIMIT = 3;
@@ -115,13 +116,6 @@ public class Exchange4 implements IGamePhase {
         return "Exchange Phase";
     }
 
-    /**
-     * Mode of exchange: random draw or search
-     */
-    public enum ExchangeMode {
-        RANDOM,
-        SEARCH
-    }
 
     /**
      * Represents a card chosen for exchange

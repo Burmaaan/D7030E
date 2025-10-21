@@ -2,7 +2,8 @@ package src.main.game;
 
 import src.main.domain.PlayerState;
 import src.main.domain.card.Card;
-import src.main.game.phase.Action2.PlayerAction;
+import src.main.game.phase.ExchangeMode;
+import src.main.game.phase.PlayerAction;
 import src.main.game.phase.Replenish3.DrawStackChoice;
 import src.main.game.phase.Exchange4.*;
 import src.main.player.Player;
@@ -104,14 +105,14 @@ public class StandardGameController implements GameController {
     @Override
     public int rollEventDie() {
         int result = 1 + random.nextInt(6);
-        notifyObservers(new GameEvent(GameEvent.Type.EVENT_DIE_ROLLED, result));
+        notifyObservers(new GameEvent(EventType.EVENT_DIE_ROLLED, result));
         return result;
     }
 
     @Override
     public int rollProductionDie() {
         int result = 1 + random.nextInt(6);
-        notifyObservers(new GameEvent(GameEvent.Type.PRODUCTION_DIE_ROLLED, result));
+        notifyObservers(new GameEvent(EventType.PRODUCTION_DIE_ROLLED, result));
         return result;
     }
 
@@ -119,7 +120,7 @@ public class StandardGameController implements GameController {
 
     @Override
     public void notifyPhaseStart(String phaseName) {
-        notifyObservers(new GameEvent(GameEvent.Type.PHASE_START, phaseName));
+        notifyObservers(new GameEvent(EventType.PHASE_START, phaseName));
         getCurrentPlayer().sendMessage("=== " + phaseName + " ===");
     }
 
@@ -129,7 +130,7 @@ public class StandardGameController implements GameController {
         currentPlayer = player;
         waitingPlayer = getOpponent(player);
 
-        notifyObservers(new GameEvent(GameEvent.Type.TURN_START, player));
+        notifyObservers(new GameEvent(EventType.TURN_START, player));
         player.sendMessage("\n========== TURN " + turnNumber + " ==========");
         player.sendMessage("Your turn begins.");
     }
@@ -144,19 +145,19 @@ public class StandardGameController implements GameController {
     public void notifyDiceRolled(int eventDie, int productionDie) {
         String message = String.format("Dice: Event=%d, Production=%d", eventDie, productionDie);
         getCurrentPlayer().sendMessage(message);
-        notifyObservers(new GameEvent(GameEvent.Type.DICE_ROLLED, message));
+        notifyObservers(new GameEvent(EventType.DICE_ROLLED, message));
     }
 
     @Override
     public void notifyMessage(PlayerState player, String message) {
         player.sendMessage(message);
-        notifyObservers(new GameEvent(GameEvent.Type.MESSAGE, message));
+        notifyObservers(new GameEvent(EventType.MESSAGE, message));
     }
 
     @Override
     public void notifyError(String errorMessage) {
         getCurrentPlayer().sendMessage("ERROR: " + errorMessage);
-        notifyObservers(new GameEvent(GameEvent.Type.ERROR, errorMessage));
+        notifyObservers(new GameEvent(EventType.ERROR, errorMessage));
     }
 
     @Override
@@ -170,7 +171,7 @@ public class StandardGameController implements GameController {
         String message = winner.getName() + " wins with " +
                 winner.getFinalScore(getOpponent(winner)) + " victory points!";
 
-        notifyObservers(new GameEvent(GameEvent.Type.GAME_OVER, winner));
+        notifyObservers(new GameEvent(EventType.GAME_OVER, winner));
         player1.sendMessage("\n" + message);
         player2.sendMessage("\n" + message);
     }

@@ -3,6 +3,7 @@ package src.main.game.phase;
 import src.main.game.GameController;
 import src.main.game.CardEffectHandler;
 import src.main.domain.PlayerState;
+import src.main.game.phase.PlayerAction;
 
 public class Action2 implements IGamePhase {
     private final CardEffectHandler cardEffectHandler;
@@ -88,10 +89,4 @@ public class Action2 implements IGamePhase {
     /**
      * Player actions available during this phase
      */
-    public enum PlayerAction {
-        PLAY_CARD,
-        TRADE,
-        BUILD_CENTER,
-        END_ACTIONS
-    }
 }
