@@ -1,11 +1,9 @@
 package src.main.game;
 
 import src.main.domain.PlayerState;
-import src.main.domain.card.Card;
-import src.main.game.phase.PlayerAction;
+import src.main.domain.decision.PlayerAction;
 import src.main.game.phase.Replenish3.DrawStackChoice;
-import src.main.game.phase.Exchange4;
-import src.main.game.phase.ExchangeMode;
+import src.main.domain.decision.ExchangeMode;
 
 /**
  * Contract for game orchestration and player interaction.

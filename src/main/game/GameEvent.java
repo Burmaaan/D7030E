@@ -1,6 +1,6 @@
 package src.main.game;
 
-import src.main.game.EventType;
+import src.main.domain.decision.EventType;
 /**
  * Immutable event object for observer pattern
  */

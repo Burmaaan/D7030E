@@ -1,4 +1,7 @@
 package src.main.player;
 
-public interface Player {
+public abstract class Player {
+    /*
+    * should only handle inputs
+    * */
 }
