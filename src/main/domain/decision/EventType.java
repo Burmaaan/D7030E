@@ -1,4 +1,4 @@
-package src.main.game;
+package src.main.domain.decision;
 
 public enum EventType {
 

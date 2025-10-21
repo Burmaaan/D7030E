@@ -2,6 +2,7 @@ package src.main.game;
 
 import src.main.domain.PlayerState;
 import src.main.domain.card.Card;
+import src.main.game.observer.IGameObserver;
 import src.main.game.phase.Action2.PlayerAction;
 import src.main.game.phase.Replenish3.DrawStackChoice;
 import src.main.game.phase.Exchange4.*;
@@ -29,7 +30,7 @@ public class StandardGameController implements GameController {
     private final Player player2;
     private final DeckManager deckManager;
     private final Random random;
-    private final List<GameObserver> observers;
+    private final List<IGameObserver> observers;
 
     // Current game state
     private PlayerState currentPlayer;
@@ -78,18 +79,18 @@ public class StandardGameController implements GameController {
 
     // ========== Observer Pattern for Notifications ==========
 
-    public void addObserver(GameObserver observer) {
+    public void addObserver(IGameObserver observer) {
         if (observer != null && !observers.contains(observer)) {
             observers.add(observer);
         }
     }
 
-    public void removeObserver(GameObserver observer) {
+    public void removeObserver(IGameObserver observer) {
         observers.remove(observer);
     }
 
     private void notifyObservers(GameEvent event) {
-        for (GameObserver observer : observers) {
+        for (IGameObserver observer : observers) {
             try {
                 observer.onGameEvent(event);
             } catch (Exception e) {

@@ -1,6 +1,8 @@
 package src.main.domain;
 
 import src.main.domain.card.Card;
+import src.main.player.PlayerCommunicator;
+
 import java.util.*;
 
 /**

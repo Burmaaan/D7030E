@@ -3,7 +3,7 @@ package src.main.game.phase;
 import src.main.game.GameController;
 import src.main.game.CardEffectHandler;
 import src.main.domain.PlayerState;
-import src.main.game.phase.PlayerAction;
+import src.main.domain.decision.PlayerAction;
 
 public class Action2 implements IGamePhase {
     private final CardEffectHandler cardEffectHandler;

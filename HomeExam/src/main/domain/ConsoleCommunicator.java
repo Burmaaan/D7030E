@@ -1,5 +1,7 @@
 package src.main.domain;
 
+import src.main.player.PlayerCommunicator;
+
 import java.util.Scanner;
 
 public class ConsoleCommunicator implements PlayerCommunicator {

@@ -1,4 +1,4 @@
-package src.main.domain;
+package src.main.domain.card.factories;
 
 
 import src.main.data.CardData;

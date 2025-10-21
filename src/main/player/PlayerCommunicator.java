@@ -1,4 +1,4 @@
-package src.main.domain;
+package src.main.player;
 
 /**
  * Strategy interface for player communication.

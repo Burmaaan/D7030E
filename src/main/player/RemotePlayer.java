@@ -1,4 +1,4 @@
 package src.main.player;
 
-public class RemotePlayer {
+public class RemotePlayer extends Player{
 }

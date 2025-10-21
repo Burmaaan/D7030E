@@ -2,7 +2,7 @@ package src.main.game.phase;
 
 import src.main.game.GameController;
 import src.main.domain.PlayerState;
-import src.main.game.phase.ExchangeMode;
+import src.main.domain.decision.ExchangeMode;
 
 public class Exchange4 implements IGamePhase {
     private static final int BASE_HAND_LIMIT = 3;

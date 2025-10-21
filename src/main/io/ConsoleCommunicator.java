@@ -1,4 +1,6 @@
-package src.main.domain;
+package src.main.io;
+
+import src.main.player.PlayerCommunicator;
 
 import java.util.Scanner;
 

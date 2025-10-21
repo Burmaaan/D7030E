@@ -1,4 +1,4 @@
-package src.main.game.phase;
+package src.main.domain.decision;
 
 /**
  * Mode of exchange: random draw or search
