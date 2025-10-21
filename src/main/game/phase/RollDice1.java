@@ -1,53 +1,63 @@
-package src.main.game.phase;
+package game.phase;
 
 import src.main.game.GameController;
-import src.main.game.ProductionEngine;
-import src.main.game.EventHandler;
 import src.main.domain.PlayerState;
+import src.main.game.phase.IGamePhase;
+
+import java.util.Random;
 
 public class RollDice1 implements IGamePhase {
-    private static final int BRIGAND_DIE_FACE = 1;
 
-    private final ProductionEngine productionEngine;
-    private final EventHandler eventHandler;
+    private final Random random = new Random();
 
-    public RollDice1(ProductionEngine productionEngine, EventHandler eventHandler) {
-        if (productionEngine == null || eventHandler == null) {
-            throw new IllegalArgumentException("Dependencies cannot be null");
-        }
-        this.productionEngine = productionEngine;
-        this.eventHandler = eventHandler;
+    @Override
+    public String getName() {
+        return "Roll Dice Phase";
     }
 
     @Override
     public void execute(GameController controller, PlayerState player) {
-        controller.notifyPhaseStart(getName());
+        System.out.println("[Phase] Rolling dice...");
 
-        // Roll both dice
-        int eventDieFace = controller.rollEventDie();
-        int productionDieFace = controller.rollProductionDie();
+        int eventDie = rollDie();
+        int productionDie = rollDie();
 
-        controller.notifyDiceRolled(eventDieFace, productionDieFace);
+        System.out.println("Event die: " + eventDie + ", Production die: " + productionDie);
 
-        // Handle in correct order based on event die
-        if (eventDieFace == BRIGAND_DIE_FACE) {
-            // Brigand first, then production
-            eventHandler.handleEvent(controller, eventDieFace);
-            productionEngine.produceResources(controller, productionDieFace);
+        // 1️⃣ Resolve Event first if brigand (1)
+        if (eventDie == 1) {
+            resolveEvent(eventDie, controller, player);
+            handleProduction(productionDie, controller, player);
         } else {
-            // Production first, then event
-            productionEngine.produceResources(controller, productionDieFace);
-            eventHandler.handleEvent(controller, eventDieFace);
+            handleProduction(productionDie, controller, player);
+            resolveEvent(eventDie, controller, player);
         }
     }
 
     @Override
     public boolean canEndTurnEarly() {
-        return true; // Can end if player reaches 7+ VP
+        return false;
     }
 
-    @Override
-    public String getName() {
-        return "Roll Dice Phase";
+    private int rollDie() {
+        return 1 + random.nextInt(6);
+    }
+
+    private void handleProduction(int productionDie, GameController controller, PlayerState player) {
+        System.out.println("[Production] Each player receives resources for production value: " + productionDie);
+        // TODO: Distribute resources according to productionDie and board layout
+    }
+
+    private void resolveEvent(int eventDie, GameController controller, PlayerState player) {
+        System.out.println("[Event] Resolving event type: " + eventDie);
+        switch (eventDie) {
+            case 1 -> System.out.println("Brigand attack! Lose wool/gold if >7 resources.");
+            case 2 -> System.out.println("Trade advantage event! Resource exchange triggered.");
+            case 3 -> System.out.println("Celebration! Reward skill leader or all players.");
+            case 4 -> System.out.println("Plentiful Harvest! Each player gains one resource of choice.");
+            case 5, 6 -> System.out.println("Event Card! Draw and resolve event card.");
+            default -> System.out.println("Invalid event roll.");
+        }
+        // TODO: Implement event handling with resource logic
     }
 }

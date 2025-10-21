@@ -1,5 +1,7 @@
 package src.main.player;
 
 public abstract class Player {
-    Input input;
+    /*
+    * should only handle inputs
+    * */
 }
